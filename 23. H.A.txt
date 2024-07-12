@@ -1,0 +1,52 @@
+# 1. Напишите программу, которая открывает файл, считывает из него два числа и выполняет операцию их деления. 
+# Если число отрицательное, выбросите исключение ValueError с сообщением "Число должно быть положительным". 
+# Обработайте исключение и выведите соответствующее сообщение.
+
+def test1(file_name):
+    with open(file_name, 'r') as file:
+        num1 = int(file.readline().strip())
+        num2 = int(file.readline().strip())
+        if num1 < 0 or num2 < 0:
+            raise ValueError("Число должно быть положительным")
+
+        result = num1 / num2
+        return result
+
+
+try:
+    file_name = "numbers.txt"
+    result = test1(file_name)
+    print(f"Результат деления: {result}")
+
+except:
+    pass
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+# 2. Напишите программу, которая открывает файл, считывает его содержимое и выполняет операции над числами в файле. 
+# Обработайте возможные исключения при открытии файла (FileNotFoundError) и при выполнении операций над числами
+# (ValueError, ZeroDivisionError). Используйте конструкцию try-except-finally для обработки исключений и закрытия файла в блоке 
+# finally.
+
+def process_numbers(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            num1, num2 = map(int, file.readline().split())
+
+            if num1 < 0 or num2 < 0:
+                raise ValueError("Число должно быть положительным")
+
+            result = num1 / num2
+            return result
+
+    except FileNotFoundError:
+        print("Ошибка: Файл не найден.")
+    except ValueError:
+        print("Ошибка: Число должно быть положительным.")
+    except ZeroDivisionError:
+        print("Ошибка: Деление на ноль невозможно.")
+
+file_name = "numbers.txt"
+result = process_numbers(file_name)
+if result is not None:
+    print(f"Результат деления: {result:.2f}")
